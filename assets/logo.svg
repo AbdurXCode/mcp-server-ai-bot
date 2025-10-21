@@ -1,0 +1,37 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"/>
+  
+  <!-- AI Brain Icon -->
+  <g transform="translate(50, 50)">
+    <!-- Brain outline -->
+    <path d="M50 20 C30 20, 15 35, 15 55 C15 70, 25 80, 40 85 C35 90, 40 95, 50 95 C60 95, 65 90, 60 85 C75 80, 85 70, 85 55 C85 35, 70 20, 50 20 Z" 
+          fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+    
+    <!-- Neural network nodes -->
+    <circle cx="30" cy="40" r="3" fill="#ffffff"/>
+    <circle cx="50" cy="35" r="3" fill="#ffffff"/>
+    <circle cx="70" cy="40" r="3" fill="#ffffff"/>
+    <circle cx="25" cy="60" r="3" fill="#ffffff"/>
+    <circle cx="50" cy="65" r="3" fill="#ffffff"/>
+    <circle cx="75" cy="60" r="3" fill="#ffffff"/>
+    
+    <!-- Connection lines -->
+    <line x1="30" y1="40" x2="50" y2="35" stroke="#ffffff" stroke-width="1"/>
+    <line x1="50" y1="35" x2="70" y2="40" stroke="#ffffff" stroke-width="1"/>
+    <line x1="30" y1="40" x2="25" y2="60" stroke="#ffffff" stroke-width="1"/>
+    <line x1="50" y1="35" x2="50" y2="65" stroke="#ffffff" stroke-width="1"/>
+    <line x1="70" y1="40" x2="75" y2="60" stroke="#ffffff" stroke-width="1"/>
+    <line x1="25" y1="60" x2="50" y2="65" stroke="#ffffff" stroke-width="1"/>
+    <line x1="50" y1="65" x2="75" y2="60" stroke="#ffffff" stroke-width="1"/>
+  </g>
+  
+  <!-- MCP Text -->
+  <text x="100" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">MCP</text>
+  
+  <!-- LLM Text -->
+  <text x="100" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">LLM</text>
+  
+  <!-- AI Text -->
+  <text x="100" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">AI Assistant</text>
+</svg>

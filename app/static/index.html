@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Platform - MCP & LLM Integration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success {
+            background-color: #d5f4e6;
+            border: 1px solid #27ae60;
+            color: #27ae60;
+        }
+        .error {
+            background-color: #fadbd8;
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        .loading {
+            background-color: #fef9e7;
+            border: 1px solid #f39c12;
+            color: #f39c12;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Assistant Platform</h1>
+    <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Intelligent Customer Service with MCP & LLM Integration</p>
+    
+    <div class="grid">
+        <!-- Customer Data Lookup -->
+        <div class="container">
+            <h2>🔍 Customer Data Lookup</h2>
+            <div class="form-group">
+                <label for="fileNumber">File Number:</label>
+                <input type="text" id="fileNumber" placeholder="Enter file number (e.g., 14226904)" value="14226904">
+            </div>
+            <button onclick="testMCPTool()">Lookup Customer Data</button>
+            <div id="mcpResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <!-- LLM Chat -->
+        <div class="container">
+            <h2>💬 LLM Chat</h2>
+            <div class="form-group">
+                <label for="chatMessage">Your Message:</label>
+                <textarea id="chatMessage" placeholder="Ask about a customer or general questions...">What can you tell me about this customer's payment history?</textarea>
+            </div>
+            <div class="form-group">
+                <label for="chatFileNumber">File Number (optional):</label>
+                <input type="text" id="chatFileNumber" placeholder="Leave empty for general chat" value="14226904">
+            </div>
+            <button onclick="chatWithLLM()">Chat with Gemini</button>
+            <div id="chatResponse" class="response" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- AI Summary -->
+    <div class="container">
+        <h2>📊 AI Summary</h2>
+        <div class="form-group">
+            <label for="summaryFileNumber">File Number:</label>
+            <input type="text" id="summaryFileNumber" placeholder="Enter file number for AI summary" value="14226904">
+        </div>
+        <button onclick="getAISummary()">Get AI Summary</button>
+        <div id="summaryResponse" class="response" style="display: none;"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000';
+
+        async function testMCPTool() {
+            const fileNumber = document.getElementById('fileNumber').value;
+            const responseDiv = document.getElementById('mcpResponse');
+            
+            if (!fileNumber) {
+                showResponse(responseDiv, 'Please enter a file number', 'error');
+                return;
+            }
+
+            showResponse(responseDiv, 'Looking up customer data...', 'loading');
+            
+            try {
+                const response = await fetch(`${API_BASE}/test/get_user_details`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ file_number: fileNumber })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResponse(responseDiv, JSON.stringify(data, null, 2), 'success');
+                } else {
+                    showResponse(responseDiv, `Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showResponse(responseDiv, `Network error: ${error.message}`, 'error');
+            }
+        }
+
+        async function chatWithLLM() {
+            const message = document.getElementById('chatMessage').value;
+            const fileNumber = document.getElementById('chatFileNumber').value;
+            const responseDiv = document.getElementById('chatResponse');
+            
+            if (!message) {
+                showResponse(responseDiv, 'Please enter a message', 'error');
+                return;
+            }
+
+            showResponse(responseDiv, 'Chatting with Gemini...', 'loading');
+            
+            try {
+                const requestBody = { message: message };
+                if (fileNumber) {
+                    requestBody.file_number = fileNumber;
+                }
+
+                const response = await fetch(`${API_BASE}/llm/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResponse(responseDiv, data.response, 'success');
+                } else {
+                    showResponse(responseDiv, `Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showResponse(responseDiv, `Network error: ${error.message}`, 'error');
+            }
+        }
+
+        async function getAISummary() {
+            const fileNumber = document.getElementById('summaryFileNumber').value;
+            const responseDiv = document.getElementById('summaryResponse');
+            
+            if (!fileNumber) {
+                showResponse(responseDiv, 'Please enter a file number', 'error');
+                return;
+            }
+
+            showResponse(responseDiv, 'Generating AI summary...', 'loading');
+            
+            try {
+                const response = await fetch(`${API_BASE}/llm/summarize`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ file_number: fileNumber })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResponse(responseDiv, data.summary, 'success');
+                } else {
+                    showResponse(responseDiv, `Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showResponse(responseDiv, `Network error: ${error.message}`, 'error');
+            }
+        }
+
+        function showResponse(element, message, type) {
+            element.textContent = message;
+            element.className = `response ${type}`;
+            element.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

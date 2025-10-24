@@ -20,7 +20,7 @@ class Config:
     # External API Configuration
     DEBT_COLLECTION_API_URL = os.getenv(
         "DEBT_COLLECTION_API_URL",
-        "https://newip.collectco.com/emilyai/user-details-by-file-number"
+        "https://your-api-endpoint.com/api/user-details"
     )
     API_TIMEOUT = int(os.getenv("API_TIMEOUT", 20))
     

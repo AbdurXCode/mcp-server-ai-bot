@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Collection AI Assistant</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏦 Debt Collection AI Assistant</h1>
+            <p class="subtitle">Powered by MCP & Gemini</p>
+        </header>
+
+        <div class="chat-container">
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <strong>AI Assistant:</strong> Hello! I can help you retrieve client information from our debt collection system. Please provide a file number or ask me any question about a client.
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <textarea 
+                    id="userInput" 
+                    placeholder="Ask about a client (e.g., 'Get details for file number 123421')" 
+                    rows="3"
+                ></textarea>
+                <button id="sendButton" onclick="sendQuery()">
+                    Send Query
+                </button>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h3>Example Queries:</h3>
+            <ul>
+                <li onclick="setQuery(this.textContent)">Get client details for file number 123421</li>
+                <li onclick="setQuery(this.textContent)">What is the email for file number 123421?</li>
+                <li onclick="setQuery(this.textContent)">Show me information about file 123421</li>
+            </ul>
+        </div>
+
+        <div class="status" id="status">
+            <span class="status-dot"></span> Ready
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement
+title: "[FEATURE]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Please fill out the form below to help us understand your request.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: ✨ Feature Description
+      description: A clear and concise description of the feature you'd like to see implemented.
+      placeholder: Describe the feature...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: 🎯 Problem Statement
+      description: What problem does this feature solve? What is the current limitation?
+      placeholder: |
+        Currently, users have to...
+        This is problematic because...
+        With this feature, users would be able to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe how you envision this feature working
+      placeholder: |
+        I propose that we...
+        This would work by...
+        Users would interact with it by...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternative Solutions
+      description: Describe any alternative solutions or workarounds you've considered
+      placeholder: |
+        Alternative approaches could include...
+        Workarounds currently available...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚨 Priority
+      description: How important is this feature to you?
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 📂 Category
+      description: What category does this feature fall under?
+      options:
+        - User Interface
+        - API/Backend
+        - Performance
+        - Security
+        - Documentation
+        - Testing
+        - Deployment
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: 📋 Use Cases
+      description: Provide specific examples of how this feature would be used
+      placeholder: |
+        Example 1: A user wants to...
+        Example 2: In scenario X, this would help by...
+    validations:
+      required: false
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: 🎨 Mockups/Examples
+      description: If applicable, provide mockups, wireframes, or examples from other projects
+      placeholder: |
+        Link to mockups or describe the UI/UX...
+        Reference similar features in other projects...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📎 Additional Context
+      description: Add any other context, research, or information about the feature request
+      placeholder: Any additional information that might be helpful...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: I have provided all the required information above
+          required: true
+        - label: I am willing to help implement this feature if needed
+          required: false

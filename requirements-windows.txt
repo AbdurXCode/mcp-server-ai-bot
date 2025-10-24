@@ -1,0 +1,24 @@
+# Windows-optimized requirements for debt-collection-mcp
+# Use this file if you encounter compilation issues
+
+# Core MCP and FastAPI dependencies - compatible versions
+mcp>=1.0.0,<2.0.0
+fastapi>=0.100.0,<1.0.0
+uvicorn[standard]>=0.20.0
+python-dotenv>=1.0.0
+httpx>=0.24.0
+
+# Use latest stable pydantic with pre-compiled wheels
+pydantic>=2.0.0,<3.0.0
+
+# AI and template dependencies
+google-generativeai>=0.3.0
+jinja2>=3.1.0
+python-multipart>=0.0.6
+
+# HTTP client - compatible version
+aiohttp>=3.8.0
+
+# Additional dependencies that might be needed
+starlette>=0.27.0
+typing-extensions>=4.8.0
